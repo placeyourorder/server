@@ -1,0 +1,22 @@
+{
+  "name": "pyo-server",
+  "version": "0.0.0",
+  "description": "PYO server side code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/placeyourorder/server.git"
+  },
+  "author": "Renjith Sasidharan, Sanjeev Govekar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/placeyourorder/server/issues"
+  },
+  "homepage": "https://github.com/placeyourorder/server",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
