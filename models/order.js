@@ -8,7 +8,7 @@ module.exports = function() {
         discount: Number
     });
     var orderSchema = new mongoose.Schema({
-        store_id: String,
+        store_id: {type: mongoose.Schema.Types.ObjectId, ref: 'store'},
         address: {
             address1: String,
             address2: String,

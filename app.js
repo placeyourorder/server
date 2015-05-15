@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 var models = require('./models/models.js');
 var app = express();
@@ -15,6 +16,9 @@ var server = app.listen(1337, function () {
   db.on('error', function() {
   	console.log('Error conencting to database');
   });
+
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
   models.initialize();
   require('./routes')(app);

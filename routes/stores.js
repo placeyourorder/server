@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
+var Validator = require('jsonschema').Validator;
 var models = require('../models/models.js');
 
-mongoose.set('debug', true);
+var getStoreSchema = require('../validations/store/getstore.js');
+var v = new Validator();
+require('../validations/customvalidators.js')(v);
 
 module.exports = function(app) {
   app.get('/stores', function (req, res) {
@@ -15,41 +18,26 @@ module.exports = function(app) {
 
   app.get('/stores/:storeId', function (req, res) {
     var store = mongoose.model('store');
-    if (req.params.storeId.match(/^[0-9a-fA-F]{24}$/)) {
-      store.findById(req.params.storeId, function(err, stores) {
-            if (err) return console.error(err);
-            console.log('Get stores');
-          res.send(stores);
-      });
-    }
-    else
-    {
-      res.status(400).end();
-    }
+    var result = v.validate({id:req.params.storeId}, getStoreSchema.isValidMongoIdScehma);
+    console.log(result.errors);
+    if(result.errors.length > 0) {
+      res.json(result.errors);
+      return res.status(400).end()
+    };
+    store.findById(req.params.storeId, function(err, stores) {
+          if (err) return console.error(err);
+          console.log('Get stores');
+        res.send(stores);
+    });
   });
 
   app.get('/stores/:storeId/items', function (req, res) {
-    var store = mongoose.model('store');
+    var item = mongoose.model('item');
     if (req.params.storeId.match(/^[0-9a-fA-F]{24}$/)) {
-      store.findById(req.params.storeId, function(err, stores) {
+      item.find({'store_id': req.params.storeId}, function(err, items) {
             if (err) return console.error(err);
             console.log('Get items');
-          res.send(stores.departments);
-      });
-    }
-    else
-    {
-      res.status(400).end();
-    }
-  });
-
-  app.get('/stores/:storeId/order', function (req, res) {
-    var order = mongoose.model('order');
-    if (req.params.storeId.match(/^[0-9a-fA-F]{24}$/)) {
-      order.find(function(err, result) {
-            if (err) return console.error(err);
-            console.log('Get order');
-          res.send(result);
+          res.send(items);
       });
     }
     else
