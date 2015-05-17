@@ -1,6 +1,6 @@
 [
 	{
-		"store_id": "553b75045a692a49c541c843",
+		"store_id": "55560f8e192606141a0dc832",
 		"status": "delivered",
 		"authorization_status": "CAPTURED",
 		"total_price": 106,
@@ -13,16 +13,13 @@
 		},
 		"phone":937459437,
 		"line_items": [{
-			"item_id": "32847jdfh823y8789",
+			"item_id": "55560f8f192606141a0dc834",
 			"quantity": 2,
 			"unit_price": 45,
-			"total_price": 90		
-		},
-		{
-			"item_id": "734u743yfd7y87",
-			"quantity": 4,
-			"unit_price": 4,
-			"total_price": 16		
+			"total_price": 90,
+			"variant": {
+				"_id": "55560f8f192606141a0dc836"
+			}		
 		}]		
 	},
 	{

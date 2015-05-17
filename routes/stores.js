@@ -4,7 +4,7 @@ var models = require('../models/models.js');
 
 var getStoreSchema = require('../validations/store/getstore.js');
 var v = new Validator();
-require('../validations/customvalidators.js')(v);
+require('../validations/commonvalidators.js')(v);
 
 module.exports = function(app) {
   app.get('/stores', function (req, res) {
