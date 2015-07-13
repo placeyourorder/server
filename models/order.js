@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-01 00:19:37
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-07-05 23:14:03
 */
 var mongoose = require('mongoose');
 module.exports = function() {
@@ -11,9 +11,12 @@ module.exports = function() {
       type: mongoose.Schema.Types.ObjectId,
       required: true
     },
-    quantity: {
-      type: Number,
+    name: {
+      type: String,
       required: true
+    },
+    quantity: {
+      type: Number
     },
     unit_price: {
       type: Number
@@ -31,6 +34,15 @@ module.exports = function() {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
+      },
+      uom: {
+        type: String
+      },
+      quantity: {
+        type: Number
+      },
+      price: {
+        type: Number
       }
     }
   });

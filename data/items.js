@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-25 21:36:02
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-07-13 22:35:58
 */
 var items = [{
   "store_id": "",
@@ -10,7 +10,7 @@ var items = [{
   "sku": "34jf43hdsh",
   "name": "Parle G",
   "description": "Parle G buscuits",
-  "tags": ["Fruits", "Apple"],
+  "tags": ["Snacks", "Biscuits"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
     "quantity": "50",

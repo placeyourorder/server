@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-07-08 00:39:50
 */
 "use strict";
 
@@ -14,7 +14,6 @@ var log =  require('../logger.js');
 
 module.exports = function(app) {
 	app.put('/stores/:storeId/orders/:orderId/pack', function(req, res) {
-		log.info(req.body);
 		var v = new Validator();
 		var packOrderValidator = require('../validations/store/order/packorder.js');
 		packOrderValidator.initialize(v);

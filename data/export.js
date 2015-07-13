@@ -1,12 +1,13 @@
 /* 
-* @Author: renjithks
-* @Date:   2015-06-12 22:08:35
-* @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
-*/
+ * @Author: renjithks
+ * @Date:   2015-06-12 22:08:35
+ * @Last Modified by:   renjithks
+ * @Last Modified time: 2015-07-13 23:33:59
+ */
 var mongoose = require('mongoose');
 var storesJson = require('./stores.js');
 var itemsJson = require('./items.js');
+var categoriesJson = require('./categories.js');
 var models = require('../models/models.js');
 
 models.initialize();
@@ -29,9 +30,15 @@ storeModel.remove({}, function(err) {
     itemsModel.remove({}, function(err) {
       console.log('item collection removed');
     });
+
+    var categoriesModel = mongoose.model('categories');
+    categoriesModel.remove({}, function(err) {
+      console.log('categories collection removed');
+    });
     storeModel.find(function(err, storeResult) {
       if (err) return console.log(err);
       for (i = 0; i < storeResult.length; i++) {
+        //Add item
         for (j = 0; j < itemsJson.length; j++) {
           itemsJson[j].store_id = storeResult[i]._id;
         }
@@ -40,11 +47,18 @@ storeModel.remove({}, function(err) {
           console.log('items exported');
           return;
         });
+        //Add category
+        categoriesJson.store_id = storeResult[i]._id;
+        categoriesModel.create(categoriesJson, function(err, res) {
+          if (err) return console.error(err);
+          console.log('categoriesModel exported');
+          return;
+        });
       }
       console.log('Done');
       return;
     }.bind(me));
     return;
   }.bind(me));
-return;
+  return;
 }.bind(me));

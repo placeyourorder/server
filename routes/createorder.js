@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-02 21:21:13
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-07-05 21:55:25
 */
 "use strict";
 
@@ -58,6 +58,10 @@ function createOrder(req, res) {
             }
           });
           itemPrice = variant.price;
+          lineItem.variant.uom = variant.uom;
+          lineItem.variant.quantity = variant.quantity;
+          lineItem.variant.price = variant.price;
+          console.log(lineItem.variant);
         } else {
           itemPrice = result.price;
         }
@@ -65,6 +69,7 @@ function createOrder(req, res) {
         orderTotal += lineTotal;
         lineItem.total_price = lineTotal;
         lineItem.status = "CREATED";
+        lineItem.name = result.name;
         callback();
       });
     },
