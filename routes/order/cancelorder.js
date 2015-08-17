@@ -2,21 +2,23 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:54
+* @Last Modified time: 2015-08-06 11:27:29
 */
 "use strict";
 
 var mongoose = require('mongoose');
 var _ = require('underscore');
 var Validator = require('jsonschema').Validator;
-var models = require('../models/models.js');
-var log =  require('../logger.js');
+var models = require('../../models/models.js');
+var log =  require('../../logger.js');
+var util =  require('../util.js');
+var ensureAuthenticated = util.ensureAuthenticated;
 
 module.exports = function(app) {
-	app.delete('/stores/:storeId/orders', function(req, res) {
+	app.delete('/stores/:storeId/orders', ensureAuthenticated, function(req, res) {
 		log.info(req.body);
 		var v = new Validator();
-		var cancelOrderValidator = require('../validations/store/order/cancelorder.js');
+		var cancelOrderValidator = require('../../validations/store/order/cancelorder.js');
 		cancelOrderValidator.initialize(v);
 		v.data =  req.body;
 		var result = v.validate(req.body, cancelOrderValidator.cancelOrderSchema);

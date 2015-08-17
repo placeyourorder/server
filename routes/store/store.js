@@ -2,18 +2,20 @@
 * @Author: renjithks
 * @Date:   2015-06-22 22:27:59
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-08-06 12:31:34
 */
 var mongoose = require('mongoose');
 var Validator = require('jsonschema').Validator;
-var models = require('../models/models.js');
+var models = require('../../models/models.js');
+var util =  require('../util.js');
+var ensureAuthenticated = util.ensureAuthenticated;
 
-var getStoreSchema = require('../validations/store/getstore.js');
+var getStoreSchema = require('../../validations/store/getstore.js');
 var v = new Validator();
-require('../validations/commonvalidators.js')(v);
+require('../../validations/commonvalidators.js')(v);
 
 module.exports = function(app) {
-  app.get('/stores', function(req, res) {
+  app.get('/stores', ensureAuthenticated, function(req, res) {
     var store = mongoose.model('store');
     store.find(function(err, stores) {
       if (err) return console.error(err);
@@ -21,7 +23,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/stores/:storeId', function(req, res) {
+  app.get('/stores/:storeId', ensureAuthenticated, function(req, res) {
     var store = mongoose.model('store');
     var result = v.validate({
       id: req.params.storeId

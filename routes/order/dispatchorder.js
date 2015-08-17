@@ -2,21 +2,23 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-08-06 11:27:51
 */
 "use strict";
 
 var mongoose = require('mongoose');
 var _ = require('underscore');
 var Validator = require('jsonschema').Validator;
-var models = require('../models/models.js');
-var log =  require('../logger.js');
+var models = require('../../models/models.js');
+var log =  require('../../logger.js');
+var util =  require('../util.js');
+var ensureAuthenticated = util.ensureAuthenticated;
 
 module.exports = function(app) {
-	app.put('/stores/:storeId/orders/:orderId/dispatch', function(req, res) {
+	app.put('/stores/:storeId/orders/:orderId/dispatch', ensureAuthenticated, function(req, res) {
 		log.info(req.body);
 		var v = new Validator();
-		var dispatchOrderValidator = require('../validations/store/order/dispatchorder.js');
+		var dispatchOrderValidator = require('../../validations/store/order/dispatchorder.js');
 		dispatchOrderValidator.initialize(v);
 		v.data =  req.body;
 		var result = v.validate(req.body, dispatchOrderValidator.dispatchOrderSchema);

@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-12 22:08:35
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-07-13 23:33:59
+ * @Last Modified time: 2015-08-09 14:08:04
  */
 var mongoose = require('mongoose');
 var storesJson = require('./stores.js');
@@ -31,7 +31,7 @@ storeModel.remove({}, function(err) {
       console.log('item collection removed');
     });
 
-    var categoriesModel = mongoose.model('categories');
+    var categoriesModel = mongoose.model('category');
     categoriesModel.remove({}, function(err) {
       console.log('categories collection removed');
     });

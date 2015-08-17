@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-02 21:21:13
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-05 21:55:25
+* @Last Modified time: 2015-08-06 11:27:43
 */
 "use strict";
 
@@ -10,10 +10,12 @@ var async = require('async');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 var Validator = require('jsonschema').Validator;
-var models = require('../models/models.js');
+var models = require('../../models/models.js');
+var util =  require('../util.js');
+var ensureAuthenticated = util.ensureAuthenticated;
 
 module.exports = function(app) {
-  app.get('/stores/:storeId/orders', function(req, res) {
+  app.get('/stores/:storeId/orders', ensureAuthenticated, function(req, res) {
     var order = mongoose.model('order');
     order.find({
       store_id: req.params.storeId
@@ -28,7 +30,7 @@ module.exports = function(app) {
     var v = new Validator();
     var order = mongoose.model('order');
     v.data = req.body;
-    var createOrderValidator = require('../validations/store/order/createorder.js');
+    var createOrderValidator = require('../../validations/store/order/createorder.js');
     createOrderValidator.initialize(v);
     var result = v.validate(req.body, createOrderValidator.createOrderSchema);
     if (result.errors.length > 0) return res.status(400).json(result.errors);
