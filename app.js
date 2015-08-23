@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-30 20:31:57
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-06 11:21:36
+ * @Last Modified time: 2015-08-20 00:27:03
  */
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -14,12 +14,12 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var app = express();
+var config = common.config();
 
-var server = app.listen(1337, function() {
+var server = app.listen(config.appListenPort, config.appListenAddress, function() {
 
   var host = server.address().address;
   var port = server.address().port;
-  var config = common.config();
 
   models.initialize();
   console.log('App listening at http://%s:%s', host, port);

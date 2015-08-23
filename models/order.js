@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-01 00:19:37
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-05 23:14:03
+* @Last Modified time: 2015-08-23 17:33:47
 */
 var mongoose = require('mongoose');
 module.exports = function() {
@@ -55,24 +55,25 @@ module.exports = function() {
     address: {
       address1: {
         type: String,
-        required: true
       },
       address2: String,
       city: {
         type: String,
-        required: true
       },
       state: {
         type: String,
-        required: true
       },
       country: {
         type: String,
-        required: true
       },
       zipcode: {
         type: String,
-        required: true
+      },
+      latitude: {
+        type: String,
+      },
+      longitude: {
+        type: String,
       }
     },
     phone: {

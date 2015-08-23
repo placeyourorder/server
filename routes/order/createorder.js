@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-02 21:21:13
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-06 11:27:43
+* @Last Modified time: 2015-08-20 01:56:33
 */
 "use strict";
 
@@ -11,8 +11,8 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 var Validator = require('jsonschema').Validator;
 var models = require('../../models/models.js');
-var util =  require('../util.js');
-var ensureAuthenticated = util.ensureAuthenticated;
+var util = require('../../Utils/utils.js');
+var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
   app.get('/stores/:storeId/orders', ensureAuthenticated, function(req, res) {
@@ -26,7 +26,6 @@ module.exports = function(app) {
   });
 
   app.post('/stores/:store_id/orders', function(req, res) {
-    console.log(req.body);
     var v = new Validator();
     var order = mongoose.model('order');
     v.data = req.body;

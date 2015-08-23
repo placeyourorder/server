@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-07-26 16:48:13
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-06 11:28:46
+ * @Last Modified time: 2015-08-20 01:57:29
  */
 
 'use strict';
@@ -10,8 +10,8 @@
 var _ = require('underscore');
 var mongoose = require('mongoose');
 var models = require('../../models/models.js');
-var util =  require('../util.js');
-var ensureAuthenticated = util.ensureAuthenticated;
+var util = require('../../Utils/utils.js');
+var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
   app.post('/stores/:storeId/items/search', ensureAuthenticated,  function(req, res) {

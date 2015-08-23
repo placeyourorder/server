@@ -2,13 +2,13 @@
 * @Author: renjithks
 * @Date:   2015-06-22 22:27:59
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-06 12:31:34
+* @Last Modified time: 2015-08-20 01:57:34
 */
 var mongoose = require('mongoose');
 var Validator = require('jsonschema').Validator;
 var models = require('../../models/models.js');
-var util =  require('../util.js');
-var ensureAuthenticated = util.ensureAuthenticated;
+var util = require('../../Utils/utils.js');
+var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 var getStoreSchema = require('../../validations/store/getstore.js');
 var v = new Validator();

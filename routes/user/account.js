@@ -1,27 +1,28 @@
 /* 
-* @Author: renjithks
-* @Date:   2015-08-16 22:04:05
-* @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-16 23:20:05
-*/
+ * @Author: renjithks
+ * @Date:   2015-08-16 22:04:05
+ * @Last Modified by:   renjithks
+ * @Last Modified time: 2015-08-20 01:57:08
+ */
 
 'use strict';
 
 var mongoose = require('mongoose');
 var _ = require('underscore');
 var models = require('../../models/models.js');
-var util =  require('../util.js');
-var ensureAuthenticated = util.ensureAuthenticated;
+var util = require('../../Utils/utils.js');
+var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
-  app.get('/users/account', ensureAuthenticated,  function(req, res) {
+  app.get('/users/account', ensureAuthenticated, function(req, res) {
+    var user = req.user;
+    var response = {
+      _id: user._id,
+      email: user.email,
+      phone: user.phone,
+      address: user.address
+    }
     console.log('Get user account');
-    var user = mongoose.model('user');
-    user.find({
-      _id: req.user._id,
-    }, function(err, result) {
-      if (err) return res.send(500).end();
-      res.send(result);
-    });
+    res.send(response);
   });
- }
+}

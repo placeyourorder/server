@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
+* @Last Modified time: 2015-08-23 18:07:02
 */
 "use strict";
 
@@ -90,7 +90,7 @@ exports.initialize = function(validator) {
     if(output.status !== 'CREATED') {
       return "Order cannot be cancelled" + JSON.stringify(instance);
     }
-  } 
+  }
 
   validator.attributes.isValidLineItem = function validateLineItem(instance, schema, options, ctx) {
     var order = mongoose.model('order');
@@ -117,7 +117,7 @@ exports.initialize = function(validator) {
       return "Invalid line item " + JSON.stringify(instance);
     } else {
       if(item.status !== 'CREATED') {
-        return "Line item cannot be cancelled " + JSON.stringify(instance); 
+        return "Line item cannot be cancelled " + JSON.stringify(instance);
       }
     }
   }

@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-06 11:27:39
+* @Last Modified time: 2015-08-20 01:56:21
 */
 "use strict";
 
@@ -11,8 +11,8 @@ var _ = require('underscore');
 var Validator = require('jsonschema').Validator;
 var models = require('../../models/models.js');
 var log =  require('../../logger.js');
-var util =  require('../util.js');
-var ensureAuthenticated = util.ensureAuthenticated;
+var util = require('../../Utils/utils.js');
+var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
 	app.put('/stores/:storeId/orders/:orderId/complete', ensureAuthenticated, function(req, res) {
