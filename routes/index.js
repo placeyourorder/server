@@ -29,6 +29,7 @@ module.exports = function(app) {
   require('./user/logout.js')(app);
   require('./user/account.js')(app);
   require('./user/address.js')(app);
+  require('./user/restore.js')(app);
 
   require('../Utils/utils.js');
 }
