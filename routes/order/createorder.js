@@ -1,9 +1,9 @@
 /* 
-* @Author: renjithks
-* @Date:   2015-07-02 21:21:13
-* @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-20 01:56:33
-*/
+ * @Author: renjithks
+ * @Date:   2015-07-02 21:21:13
+ * @Last Modified by:   renjithks
+ * @Last Modified time: 2015-08-23 23:28:10
+ */
 "use strict";
 
 var async = require('async');
@@ -82,8 +82,8 @@ function createOrder(req, res) {
       }
       orderJson.total_price = orderTotal;
       orderJson.status = "CREATED";
+      orderJson.created_by = req.user._id;
       var order = mongoose.model('order');
-      console.log(orderJson);
       order.create(orderJson, function(err, result) {
         if (err) {
           console.log(err);

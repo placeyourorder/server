@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-07-01 00:19:37
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-23 17:33:47
+* @Last Modified time: 2015-08-23 23:08:03
 */
 var mongoose = require('mongoose');
 module.exports = function() {
@@ -51,6 +51,11 @@ module.exports = function() {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'store',
       required: true
+    },
+    store_details: {
+      title: {
+        type: String,
+      }
     },
     address: {
       address1: {
