@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-21 21:25:04
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-23 23:34:51
+ * @Last Modified time: 2015-09-01 23:29:46
  */
 var fs = require('fs');
 
@@ -30,6 +30,7 @@ module.exports = function(app) {
   require('./user/account.js')(app);
   require('./user/address.js')(app);
   require('./user/order.js')(app);
+  require('./user/restore.js')(app);
 
   require('../Utils/utils.js');
 }
