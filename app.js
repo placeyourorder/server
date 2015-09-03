@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-30 20:31:57
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-04 00:18:58
+ * @Last Modified time: 2015-09-04 00:39:01
  */
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -18,6 +18,7 @@ var config = common.config();
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || config.appListenPort;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || config.appListenAddress;
+app.set(server_port, server_ip_address);
 var server = app.listen(server_port, server_ip_address, function() {
 
   var host = server.address().address;
