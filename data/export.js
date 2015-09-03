@@ -2,16 +2,28 @@
  * @Author: renjithks
  * @Date:   2015-06-12 22:08:35
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-09 14:08:04
+ * @Last Modified time: 2015-09-04 01:44:57
  */
 var mongoose = require('mongoose');
 var storesJson = require('./stores.js');
 var itemsJson = require('./items.js');
 var categoriesJson = require('./categories.js');
 var models = require('../models/models.js');
+var common = require('../common.js');
+var config = common.config();
 
 models.initialize();
-mongoose.connect('mongodb://localhost/pyo');
+//provide a sensible default for local development
+var connection_string = config.dbUrl;
+// if OPENSHIFT env variables are present, use the available connection info:
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+    process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+    process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+    process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+    process.env.OPENSHIFT_APP_NAME;
+}
+mongoose.connect(connection_string);
 
 //Import  stores
 console.log('Starting..');
