@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-30 20:31:57
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-04 00:39:01
+ * @Last Modified time: 2015-09-04 00:45:35
  */
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -28,13 +28,17 @@ var server = app.listen(server_port, server_ip_address, function() {
   console.log('App listening at http://%s:%s', host, port);
 
   //provide a sensible default for local development
-  mongodb_connection_string = config.dbUrl + '/' + config.dbName;
-  //take advantage of openshift env vars when available:
-  if (process.env.OPENSHIFT_MONGODB_DB_URL) {
-    mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+  var connection_string = config.dbUrl;
+  // if OPENSHIFT env variables are present, use the available connection info:
+  if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+    connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+      process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+      process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+      process.env.OPENSHIFT_APP_NAME;
   }
 
-  mongoose.connect(config.dbUrl);
+  mongoose.connect(connection_string);
   var db = mongoose.connection;
   db.on('error', function() {
     console.log('Error conencting to database');
