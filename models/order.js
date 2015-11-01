@@ -2,9 +2,11 @@
 * @Author: renjithks
 * @Date:   2015-07-01 00:19:37
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-23 23:08:03
+* @Last Modified time: 2015-10-02 02:33:57
 */
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+
 module.exports = function() {
   var lineItemSchema = new mongoose.Schema({
     item_id: {
@@ -57,6 +59,14 @@ module.exports = function() {
         type: String,
       }
     },
+    customer_details: {
+      email: {
+        type: String,
+      },
+      name: {
+        type: String,
+      }
+    },
     address: {
       address1: {
         type: String,
@@ -105,5 +115,6 @@ module.exports = function() {
     created_by: String,
     updated_by: String
   });
+  orderSchema.plugin(mongoosePaginate);
   mongoose.model('order', orderSchema, 'order');
 }

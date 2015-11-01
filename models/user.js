@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-05 15:51:47
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-19 03:05:17
+ * @Last Modified time: 2015-11-02 00:59:12
  */
 
 'use strict';
@@ -67,7 +67,7 @@ module.exports = function() {
     type: {
       type: String,
       required: true,
-      enum: ['CUSTOMER', 'RETAILER']
+      enum: ['CUSTOMER', 'RETAILER', 'ADMIN']
     },
     phone: {
       type: Number,
@@ -79,5 +79,6 @@ module.exports = function() {
   schema.plugin(passportLocalMongoose, {
     usernameField: 'email'
   });
+
   mongoose.model('user', schema, 'user');
 }

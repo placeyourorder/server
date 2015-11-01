@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-18 19:37:01
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-20 02:35:50
+ * @Last Modified time: 2015-11-02 01:12:49
  */
 
 'use strict';
@@ -13,12 +13,12 @@ var _ = require('underscore');
 var request = require('request');
 var Validator = require('jsonschema').Validator;
 var models = require('../../models/models.js');
-var util = require('../../Utils/utils.js');
+var appUtil = require('../../Utils/utils.js');
 var config = require('../../common.js').config();
-var ensureAuthenticated = util.authentication.ensureAuthenticated;
+var ensureAuthenticated = appUtil.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
-  app.get('/users/address/:addressId', ensureAuthenticated, function(req, res) {
+  app.get('/users/:id/address/:addressId', ensureAuthenticated, function(req, res) {
     var user = mongoose.model('user');
     user.findOne({
       adderess: {
@@ -31,7 +31,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/users/address', ensureAuthenticated, function(req, res) {
+  app.post('/users/:id/address', ensureAuthenticated, function(req, res) {
     var user = mongoose.model('user');
     var v = new Validator();
     v.data = req.body;
@@ -42,7 +42,7 @@ module.exports = function(app) {
     createAddress(req, res);
   });
 
-  app.put('/users/address/:addressId', ensureAuthenticated, function(req, res) {
+  app.put('/users/:id/address/:addressId', ensureAuthenticated, function(req, res) {
     var user = mongoose.model('user');
     var v = new Validator();
     v.data = req.body;
@@ -53,7 +53,7 @@ module.exports = function(app) {
     updateAddress(req, res);
   });
 
-  app.delete('/users/address/:addressId', ensureAuthenticated, function(req, res) {
+  app.delete('/users/:id/address/:addressId', ensureAuthenticated, function(req, res) {
     var user = mongoose.model('user');
     user.findByIdAndUpdate({
       _id: req.user._id,
@@ -63,12 +63,9 @@ module.exports = function(app) {
           _id: req.params.addressId
         }
       }
-    }, function(err) {
+    }, function(err, result) {
       if (err) return res.send(500).end();
-      util.user.getUserAccount(req, function(err, result) {
-        if (err) return res.send(500).end();
-        res.send(result);
-      })
+      res.send(appUtil.user.readyUserDetails(result));
     });
   });
 
@@ -84,7 +81,7 @@ module.exports = function(app) {
       }
     }, function(err) {
       if (err) return res.send(500).end();
-      util.user.getUserAccount(req, function(err, result) {
+      appUtil.user.getUserAccount(req, function(err, result) {
         if (err) return res.send(500).end();
         res.send(result);
       })
@@ -93,33 +90,14 @@ module.exports = function(app) {
 
   function createAddress(req, res) {
     var address = req.body;
-    var user = mongoose.model('user');
-    user.findByIdAndUpdate({
-        _id: req.user._id
-      }, {
-        $push: {
-          address: address
-        }
-      }, {
-        safe: true,
-        upsert: true
-      },
-      function(err, result) {
-        console.log(result);
+    var userModel = mongoose.model('user');
+    userModel.findById(req.user._id, function(err, user) {
+      if (err) return res.send(500).end();
+      user.address.push(address);
+      user.save(function(err) {
         if (err) return res.send(500).end();
-        request(util.format('http://%s:%s', config.appListenAddress, config.appListenPort), function(error, response, result) {
-          if (!error && response.statusCode == 200) {
-            var response = {
-              _id: result._id,
-              email: result.email,
-              phone: result.phone,
-              address: result.address
-            }
-            res.send(response);
-          } else {
-            return res.send(500).end();
-          }
-        })
-      });
+        res.send(appUtil.user.readyUserDetails(user));
+      })
+    });
   }
 }

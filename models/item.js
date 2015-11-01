@@ -1,33 +1,68 @@
 /* 
-* @Author: renjithks
-* @Date:   2015-06-22 21:36:59
-* @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-03 00:12:53
-*/
+ * @Author: renjithks
+ * @Date:   2015-06-22 21:36:59
+ * @Last Modified by:   renjithks
+ * @Last Modified time: 2015-10-16 00:07:54
+ */
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 
 module.exports = function() {
+
+  var variationsSchema = new mongoose.Schema({
+    sku: String,
+    quantity: {
+      type: Number,
+      required: true
+    },
+    uom: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      required: true
+    }
+  });
+
   var itemSchema = new mongoose.Schema({
-    store_id: {type: mongoose.Schema.Types.ObjectId, ref: 'store'},
+    store_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'store',
+      required: true
+    },
     item_id: String,
-    name: String,
-    description: String,
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    images: {
+      small: [{
+        type: String
+      }],
+      medium: [{
+        type: String
+      }],
+      large: [{
+        type: String
+      }]
+    },
     quantity: Number,
     uom: String,
     price: Number,
     discount: Number,
-    variations: [{
-      sku: String,
-      quantity: Number,
-      uom: String,
-      price: Number
-    }],
-    tags:[String]
+    variations: [variationsSchema],
+    tags: [{
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true
+    }]
   });
+  itemSchema.plugin(mongoosePaginate);
   mongoose.model('item', itemSchema, 'item');
-
-  // var tagSchema  =  new mongoose.Schema({
-  //   item_id:{type: Schema.Types.ObjectId, ref: 'item'}
-  // });
-  // mongoose.model('tag', tagSchema, 'tag');
 };

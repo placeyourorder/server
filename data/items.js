@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-25 21:36:02
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-07-13 22:35:58
+* @Last Modified time: 2015-09-19 16:30:11
 */
 var items = [{
   "store_id": "",
@@ -13,14 +13,14 @@ var items = [{
   "tags": ["Snacks", "Biscuits"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "50",
+    "quantity": 50,
     "uom": "gm",
-    "price": "10"
+    "price": 10
   }, {
     "sku": "8hsjdgf98eh",
-    "quantity": "100",
+    "quantity": 100,
     "uom": "gm",
-    "price": "20"
+    "price": 20
   }]
 }, {
   "item_id": "sd4543sdfgsfg",
@@ -29,9 +29,9 @@ var items = [{
   "tags": ["Fruits", "Orange"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "1",
+    "quantity": 1,
     "uom": "kg",
-    "price": "100",
+    "price": 100,
   }]
 }, {
   "item_id": "sdghw347sdgsdghj",
@@ -40,9 +40,9 @@ var items = [{
   "tags": ["Fruits", "Grapes"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "1",
+    "quantity": 1,
     "uom": "kg",
-    "price": "90",
+    "price": 90,
   }]
 }, {
   "item_id": "dgj4387hsdghjsg",
@@ -52,9 +52,9 @@ var items = [{
   "tags": ["Rice", "Groceries"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "1",
+    "quantity": 1,
     "uom": "kg",
-    "price": "50",
+    "price": 50,
   }]
 }, {
   "item_id": "657rhdh4e6gfhdfg",
@@ -64,9 +64,9 @@ var items = [{
   "tags": ["Rice", "Groceries"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "2",
+    "quantity": 2,
     "uom": "kg",
-    "price": "90",
+    "price": 90,
   }]
 }, {
   "item_id": "kjsdgf48shdgfsjdh",
@@ -76,15 +76,15 @@ var items = [{
   "tags": ["Drinks", "Beverages", "Pepsi"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "300",
+    "quantity": 300,
     "uom": "ml",
-    "price": "20",
+    "price": 20,
   },
   {
     "sku": "9yadhhjdsafyu",
-    "quantity": "500",
+    "quantity": 500,
     "uom": "ml",
-    "price": "30",
+    "price": 30,
   }]
 }, {
   "item_id": "smdbfa6w8usadgjashdg",
@@ -94,15 +94,15 @@ var items = [{
   "tags": ["Drinks", "Beverages", "Cola"],
   "variations": [{
     "sku": "9yadhhjdsafyu",
-    "quantity": "300",
+    "quantity": 300,
     "uom": "ml",
-    "price": "30",
+    "price": 30,
   },
   {
     "sku": "9yadhhjdsafyu",
-    "quantity": "500",
+    "quantity": 500,
     "uom": "ml",
-    "price": "50",
+    "price": 50,
   }]
 }]
 

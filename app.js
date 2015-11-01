@@ -2,8 +2,11 @@
  * @Author: renjithks
  * @Date:   2015-06-30 20:31:57
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-04 00:45:35
+ * @Last Modified time: 2015-10-16 03:31:32
  */
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
 var express = require('express');
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
@@ -12,14 +15,27 @@ var models = require('./models/models.js');
 var common = require('./common.js');
 var passport = require('passport');
 var expressSession = require('express-session');
+var paginate = require('express-paginate');
 var LocalStrategy = require('passport-local').Strategy;
+var acl = require('acl');
 var app = express();
 var config = common.config();
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || config.appListenPort;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || config.appListenAddress;
+console.log(config.appListenAddress);
 app.set(server_port, server_ip_address);
-var server = app.listen(server_port, server_ip_address, function() {
+var sslOptions = {
+  key: fs.readFileSync('./ssl/server.key'),
+  cert: fs.readFileSync('./ssl/server.crt'),
+  ca: fs.readFileSync('./ssl/ca.crt'),
+  requestCert: true,
+  rejectUnauthorized: false
+};
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(sslOptions, app);
+
+var server = httpsServer.listen(server_port, server_ip_address, function() {
 
   var host = server.address().address;
   var port = server.address().port;
@@ -52,6 +68,8 @@ var server = app.listen(server_port, server_ip_address, function() {
     next();
   }
 
+  app.acl = new acl(new acl.mongodbBackend(db, 'acl_'));
+
   app.use(expressSession({
     secret: 'mySecretKey',
     resave: false,
@@ -75,8 +93,9 @@ var server = app.listen(server_port, server_ip_address, function() {
   app.use(allowCrossDomain);
   app.use(function(error, req, res, next) {
     console.log(error);
-    //res.sendStatus(400);
+    res.sendStatus(500);
   });
+  app.use(paginate.middleware(50, 100));
 
   require('./routes')(app);
 });

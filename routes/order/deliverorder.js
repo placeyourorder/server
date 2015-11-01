@@ -2,7 +2,7 @@
 * @Author: renjithks
 * @Date:   2015-06-12 22:08:35
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-08-20 01:56:38
+* @Last Modified time: 2015-09-19 16:00:46
 */
 "use strict";
 
@@ -16,7 +16,6 @@ var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
 	app.put('/stores/:storeId/orders/:orderId/deliver', ensureAuthenticated, function(req, res) {
-		log.info(req.body);
 		var v = new Validator();
 		var deliverOrderValidator = require('../../validations/store/order/deliverorder.js');
 		deliverOrderValidator.initialize(v);

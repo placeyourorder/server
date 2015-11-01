@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-06-12 22:08:35
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-04 01:44:57
+ * @Last Modified time: 2015-10-16 00:07:17
  */
 var mongoose = require('mongoose');
 var storesJson = require('./stores.js');

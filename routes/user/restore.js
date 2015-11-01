@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-05 17:41:04
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-20 01:04:56
+ * @Last Modified time: 2015-09-22 20:57:50
  */
 
 'use strict';
@@ -21,7 +21,7 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
 });
 
 module.exports = function(app) {
-  app.post('/users/restore', function(req, res) {
+  app.post('/users/:id/restore', function(req, res) {
     var User = mongoose.model('user');
     
     smtpTransport.sendMail({

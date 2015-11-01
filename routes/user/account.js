@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-16 22:04:05
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-20 01:57:08
+ * @Last Modified time: 2015-09-22 20:50:16
  */
 
 'use strict';
@@ -14,7 +14,7 @@ var util = require('../../Utils/utils.js');
 var ensureAuthenticated = util.authentication.ensureAuthenticated;
 
 module.exports = function(app) {
-  app.get('/users/account', ensureAuthenticated, function(req, res) {
+  app.get('/users/:id/account', ensureAuthenticated, function(req, res) {
     var user = req.user;
     var response = {
       _id: user._id,

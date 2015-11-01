@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-20 01:29:19
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-08-20 02:01:01
+ * @Last Modified time: 2015-10-02 23:41:20
  */
 
 'use strict';
@@ -25,3 +25,12 @@ exports.getUserAccount = function(req, next) {
     });
   });
 };
+
+exports.readyUserDetails = function(user) {
+  return {
+    _id: user._id,
+    email: user.email,
+    phone: user.phone,
+    address: user.address
+  }
+}
