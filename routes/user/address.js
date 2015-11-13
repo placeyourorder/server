@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-18 19:37:01
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-11-02 01:12:49
+ * @Last Modified time: 2015-11-03 01:05:45
  */
 
 'use strict';
@@ -65,13 +65,16 @@ module.exports = function(app) {
       }
     }, function(err, result) {
       if (err) return res.send(500).end();
-      res.send(appUtil.user.readyUserDetails(result));
+      appUtil.user.getUserAccount(req, function(err, result) {
+        if (err) return res.send(500).end();
+        res.send(result);
+      })
     });
   });
 
   function updateAddress(req, res) {
     var user = mongoose.model('user');
-    console.log(address);
+    var address = req.body;
     user.update({
       _id: req.user._id,
       'address._id': req.params.addressId
@@ -90,14 +93,21 @@ module.exports = function(app) {
 
   function createAddress(req, res) {
     var address = req.body;
-    var userModel = mongoose.model('user');
-    userModel.findById(req.user._id, function(err, user) {
-      if (err) return res.send(500).end();
-      user.address.push(address);
-      user.save(function(err) {
-        if (err) return res.send(500).end();
-        res.send(appUtil.user.readyUserDetails(user));
-      })
-    });
+    address._id = mongoose.Types.ObjectId();
+    var user = mongoose.model('user');
+    user.findByIdAndUpdate({
+        _id: req.user._id
+      }, {
+        $push: {
+          address: address
+        }
+      }, {
+        safe: true,
+        new: true
+      },
+      function(err, result) {
+        if (err) return res.sendStatus(500).end();
+        res.send(appUtil.user.readyUserDetails(result));
+      });
   }
 }

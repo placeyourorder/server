@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-08-16 22:04:05
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-22 20:50:16
+ * @Last Modified time: 2015-11-03 00:47:10
  */
 
 'use strict';
@@ -22,7 +22,6 @@ module.exports = function(app) {
       phone: user.phone,
       address: user.address
     }
-    console.log('Get user account');
     res.send(response);
   });
 }
